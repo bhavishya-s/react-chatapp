@@ -1,0 +1,63 @@
+@mixin shrinkLabel {
+  top: -2%;
+  font-size: 16px;
+  background: white;
+}
+
+.input-group {
+  position: relative;
+  width: min-content;
+  margin: 15px;
+
+  .input-field {
+    box-sizing: border-box;
+    min-width: 300px;
+    height: 30px;
+    font-size: 18px;
+    outline: none;
+    background: none;
+    border: solid var(--main-blue) 2px;
+    border-radius: 30px;
+    padding: 20px 30px;
+    background: none;
+  }
+
+  .input-field:hover {
+    border-color: var(--hover-blue);
+    transition: 0.2s all;
+  }
+  .input-field:focus {
+    border-color: var(--hover-blue);
+    transition: 0.2s all;
+  }
+
+  .form-input-label {
+    color: var(--main-blue);
+    background: white;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 2px 5px;
+    font-size: 16px;
+    position: absolute;
+    pointer-events: none;
+    left: 9%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 300ms ease-out top, 300ms ease-out left;
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+  }
+  .input-field:hover ~ .form-input-label {
+    color: var(--hover-blue);
+    transition: 0.2s all;
+  }
+
+  .input-field:focus ~ label {
+    top: -2%;
+    font-size: 16px;
+
+    color: var(--hover-blue);
+  }
+}

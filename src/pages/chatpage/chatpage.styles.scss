@@ -1,0 +1,23 @@
+.chat-page {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 8% auto;
+
+  .chat-body {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    flex-grow: 1;
+
+    .chat-side {
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto 20%;
+
+      .messages {
+        height: 100%;
+        width: 100%;
+        background: darkgray;
+      }
+    }
+  }
+}
