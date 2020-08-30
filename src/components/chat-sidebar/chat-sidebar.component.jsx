@@ -15,7 +15,6 @@ export default class ChatSidebar extends Component {
     ],
   };
   render() {
-    console.log(Img);
     return (
       <div className="chat-sidebar">
         {this.state.friends.map((itm, idx) => (

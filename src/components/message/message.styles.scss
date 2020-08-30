@@ -1,0 +1,36 @@
+.message-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+  .message-body-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .timestamp {
+    margin: 0 5px;
+    font-weight: 400;
+    font-size: 10px;
+    float: right;
+  }
+  &.self {
+    background: #333c4c !important;
+    text-align: right;
+
+    .timestamp {
+      float: left;
+    }
+  }
+
+  &.other {
+    background: #475469 !important;
+  }
+
+  .message-author {
+    margin: 5px;
+  }
+
+  .message-body {
+    margin: 5px;
+  }
+}

@@ -1,0 +1,42 @@
+$main-color: #313a49;
+
+.message-input-box {
+  width: 70%;
+  min-height: 50px;
+  height: 10vh;
+  position: fixed;
+  margin: 0 auto;
+  transform: translateX(7%);
+  bottom: 20px;
+
+  input {
+    outline: none;
+    border: none;
+    background: $main-color;
+    font-size: 15px;
+    color: white;
+    border: 2px solid $main-color;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 75%;
+    width: 100%;
+    padding: 10px;
+  }
+  input:focus {
+    border: 2px solid white;
+    transition: 200ms all;
+  }
+
+  .send-button {
+    position: relative;
+    top: -40px;
+    left: 95%;
+    place-items: center;
+    width: max-content;
+    cursor: pointer;
+
+    & img {
+      width: 30px;
+    }
+  }
+}

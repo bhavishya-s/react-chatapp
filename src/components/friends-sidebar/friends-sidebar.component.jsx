@@ -3,7 +3,6 @@ import React from "react";
 import "./friends-sidebar.styles.scss";
 
 const FriendSidebar = ({ name, imgURL }) => {
-  console.log(imgURL);
   return (
     <div className="friend-container">
       <div className="friend-avatar">

@@ -6,17 +6,34 @@
   .chat-body {
     display: grid;
     grid-template-columns: 20% 80%;
-    flex-grow: 1;
+    min-height: 0;
+    // flex-grow: 1;
+    .chat-side-container {
+      height: 100%;
+      width: 100%;
+      overflow-y: auto;
 
-    .chat-side {
-      display: grid;
-      grid-template-columns: auto;
-      grid-template-rows: auto 20%;
-
-      .messages {
+      .chat-side {
+        display: grid;
         height: 100%;
         width: 100%;
-        background: darkgray;
+        grid-template-rows: auto 10%;
+        position: relative;
+        background: #242a35;
+        .messages-container {
+          box-sizing: border-box;
+          height: 100%;
+          width: 100%;
+          background: #475368;
+        }
+        .messages-clearance {
+          position: absolute;
+          content: " ";
+          width: 100%;
+          height: 10vh;
+          background: white;
+          // border: solid 1px red;
+        }
       }
     }
   }
