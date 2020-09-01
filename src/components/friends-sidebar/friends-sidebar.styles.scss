@@ -8,7 +8,7 @@
   transition: 0.15s all;
 
   &:hover {
-    background: var(--hover-blue);
+    background: var(--active-blue);
     cursor: pointer;
   }
   .friend-avatar img {

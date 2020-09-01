@@ -21,11 +21,21 @@ export default class SignIn extends React.Component {
     this.setState({ [name]: value });
   };
 
+  handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   render() {
     return (
       <div className="sign-in">
         <div className="heading">SIGN IN</div>
-        <form method="GET">
+        <div className="google-button">
+          <CustomButton onClick={signInWithGoogle}>
+            SIGN IN WITH GOOGLE
+          </CustomButton>
+        </div>
+        <div className="small heading">-OR-</div>
+        <form method="GET" onSubmit={this.handleSubmit}>
           <FormInput
             name="username"
             type="text"
@@ -44,9 +54,6 @@ export default class SignIn extends React.Component {
             <CustomButton type="submit">SIGN IN</CustomButton>
           </div>
         </form>
-        <CustomButton onClick={signInWithGoogle}>
-          SIGN IN WITH GOOGLE
-        </CustomButton>
       </div>
     );
   }

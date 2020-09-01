@@ -11,6 +11,23 @@
     user-select: none;
   }
   .button-container {
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+    margin: 15px;
+    width: 300px;
+    height: 44px;
+  }
+  .small {
+    font-size: 1rem;
+  }
+  .google-button {
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+    margin: 15px;
     width: 300px;
     height: 44px;
   }

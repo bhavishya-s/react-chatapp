@@ -1,92 +1,23 @@
 import React from "react";
 import "./chatpage.styles.scss";
+import Img from "../../temp/user.svg";
 
 import ChatSidebar from "../../components/chat-sidebar/chat-sidebar.component.jsx";
 import ChatHeader from "../../components/chat-header/chat-header.component.jsx";
 import Message from "../../components/message/message.component.jsx";
 import MessageBox from "../../components/message-box/message-box.component.jsx";
 
+import { auth } from "../../firebase/firebase.utils";
+
 export default class ChatPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
-        {
-          author: "self",
-          name: "Anmol",
-          messageBody: "I have been kidnapped!",
-          timeStamp: new Date(),
-        },
-        {
-          author: "other",
-          name: "Bhavishya",
-          messageBody: "What? Seriously?",
-          timeStamp: new Date(),
-        },
-        {
-          author: "self",
-          name: "Anmol",
-          messageBody: "Yes, sending location",
-          timeStamp: new Date(),
-        },
-
-        {
-          author: "other",
-          name: "Bhavishya",
-          messageBody: "Actually.. Look at your right, I also got kidnapped...",
-          timeStamp: new Date(),
-        },
-        {
-          author: "self",
-          name: "Anmol",
-          messageBody: "I have been kidnapped!",
-          timeStamp: new Date(),
-        },
-        {
-          author: "other",
-          name: "Bhavishya",
-          messageBody: "What? Seriously?",
-          timeStamp: new Date(),
-        },
-        {
-          author: "self",
-          name: "Anmol",
-          messageBody: "Yes, sending location",
-          timeStamp: new Date(),
-        },
-        {
-          author: "other",
-          name: "Bhavishya",
-          messageBody: "Actually.. Look at your right, I also got kidnapped...",
-          timeStamp: new Date(),
-        },
-        {
-          author: "self",
-          name: "Anmol",
-          messageBody: "I have been kidnapped!",
-          timeStamp: new Date(),
-        },
-        {
-          author: "other",
-          name: "Bhavishya",
-          messageBody: "What? Seriously?",
-          timeStamp: new Date(),
-        },
-        {
-          author: "self",
-          name: "Anmol",
-          messageBody: "Yes, sending location",
-          timeStamp: new Date(),
-        },
-        {
-          author: "other",
-          name: "Bhavishya",
-          messageBody: "Actually.. Look at your right, I also got kidnapped...",
-          timeStamp: new Date(),
-        },
-      ],
+      currentUser: props.currentUser,
+      messages: [],
     };
   }
+
   componentDidMount() {
     this.clearanceColor();
   }
@@ -95,30 +26,53 @@ export default class ChatPage extends React.Component {
     const { messages } = this.state;
     var div = document.getElementsByClassName("messages-clearance")[0];
 
-    if (messages[messages.length - 1].author === "self")
-      div.style.background = "#475469";
-    else div.style.background = "#333c4c";
+    if (messages.length !== 0) {
+      div.style.display = "block";
+      if (messages[messages.length - 1].author === "self")
+        div.style.background = "#475469";
+      else div.style.background = "#333c4c";
+    }
   };
 
   sendNewMessage = (messageBody) => {
     this.setState({
       messages: [
         ...this.state.messages,
-        { author: "self", name: "Anmol", messageBody, timeStamp: new Date() },
+        {
+          author: "self",
+          name: this.state.currentUser.displayName,
+          messageBody,
+          timeStamp: new Date(),
+        },
       ],
     });
   };
 
+  logoutUser() {
+    auth.signOut();
+  }
+
   render() {
-    const { messages } = this.state;
+    const { messages, currentUser } = this.state;
     return (
       <>
         <div className="chat-page">
-          <ChatHeader selfName="Placeholder" />
+          <ChatHeader
+            img={currentUser.photoURL}
+            selfName={currentUser.displayName}
+            logout={this.logoutUser}
+          />
           <div className="chat-body">
             <ChatSidebar />
             <div className="chat-side-container">
+              <div className="chat-side-header">
+                <div className="friend-avatar">
+                  <img className="avatar" src={Img} alt={"avatar"} />
+                </div>
+                <span className="other-name">Placeholder</span>
+              </div>
               <div className="chat-side">
+                <div className="clear-header"></div>
                 <div className="messages-container">
                   <div className="messages">
                     {messages.map((itm, idx) => (

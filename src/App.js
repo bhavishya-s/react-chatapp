@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import { auth } from "./firebase/firebase.utils.js";
 
@@ -14,9 +14,10 @@ class App extends React.Component {
     };
   }
 
+  unsubscribeFromAuth = null;
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
+      this.setState({ currentUser: auth.currentUser });
     });
   }
 
@@ -25,16 +26,21 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.state;
-    console.log(currentUser);
+    console.log(this.state.currentUser);
     return (
       <div className="App">
         <Switch>
-          {currentUser == null ? (
-            <Route exact path="/" component={HomePage} />
-          ) : (
-            <Route exact path="/" component={ChatPage} />
-          )}
+          <Route
+            exact
+            path="/"
+            render={() =>
+              this.state.currentUser ? (
+                <ChatPage currentUser={this.state.currentUser} />
+              ) : (
+                <HomePage />
+              )
+            }
+          />
         </Switch>
       </div>
     );
