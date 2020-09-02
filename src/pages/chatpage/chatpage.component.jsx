@@ -13,6 +13,7 @@ export default class ChatPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      idx: 0,
       currentUser: props.currentUser,
       messages: [],
     };
@@ -35,6 +36,22 @@ export default class ChatPage extends React.Component {
   };
 
   sendNewMessage = (messageBody) => {
+    // try {
+    //   console.log("Exec");
+    //   firestore
+    //     .collection("conversations")
+    //     .doc(`msg_${this.state.currentUser.uid}`)
+    //     .collection(`rcv_${firestore.collection(users).where(uid == )}`)
+    //     .doc("h")
+    //     .set({
+    //       sender: this.state.currentUser.displayName,
+    //       messageBody,
+    //       timeStamp: new Date(),
+    //     });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
     this.setState({
       messages: [
         ...this.state.messages,
@@ -46,6 +63,7 @@ export default class ChatPage extends React.Component {
         },
       ],
     });
+    this.setState({ idx: this.state.idx + 1 });
   };
 
   logoutUser() {

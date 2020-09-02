@@ -15,6 +15,10 @@ export default class SignIn extends React.Component {
     };
   }
 
+  handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   handleChange = (e) => {
     const { value, name } = e.target;
     this.setState({ [name]: value });
@@ -24,7 +28,7 @@ export default class SignIn extends React.Component {
     return (
       <div className="sign-up">
         <div className="heading">SIGN UP</div>
-        <form method="GET">
+        <form method="GET" onClick={this.handleSubmit}>
           <FormInput
             name="username"
             type="text"
