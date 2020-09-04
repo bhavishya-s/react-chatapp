@@ -5,11 +5,13 @@ import "./sign-up.styles.scss";
 import FormInput from "../form-input/formInput.component.jsx";
 import CustomButton from "../custom-button/custom-button.component.jsx";
 
+import { auth, storeUser } from "../../firebase/firebase.utils";
+
 export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      displayName: "",
       password: "",
       email: "",
     };
@@ -17,6 +19,24 @@ export default class SignIn extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    const { email, password, displayName } = this.state;
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await storeUser(user, { displayName });
+
+      this.setState({
+        email: "",
+        password: "",
+        username: "",
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   handleChange = (e) => {
@@ -28,12 +48,12 @@ export default class SignIn extends React.Component {
     return (
       <div className="sign-up">
         <div className="heading">SIGN UP</div>
-        <form method="GET" onClick={this.handleSubmit}>
+        <form method="GET">
           <FormInput
-            name="username"
+            name="displayName"
             type="text"
-            label="USERNAME"
-            value={this.state.username}
+            label="DISPLAY NAME"
+            value={this.state.displayName}
             handleChange={this.handleChange}
           />
           <FormInput
@@ -51,7 +71,9 @@ export default class SignIn extends React.Component {
             handleChange={this.handleChange}
           />
           <div className="button-container">
-            <CustomButton type="submit">SIGN UP</CustomButton>
+            <CustomButton type="submit" onClick={this.handleSubmit}>
+              SIGN UP
+            </CustomButton>
           </div>
         </form>
       </div>

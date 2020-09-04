@@ -29,20 +29,14 @@ export default class ChatSidebar extends Component {
         },
       ];
     });
-    console.log("...");
     this.setState({ friends });
   };
 
   render() {
-    console.log(this.state.friends);
     return (
       <div className="chat-sidebar">
         {this.state.friends.map((itm, idx) => (
-          <FriendSidebar
-            imgURL={itm.imgURL}
-            name={itm.displayName}
-            key={itm.uid}
-          />
+          <FriendSidebar imgURL={itm.imgURL} name={itm.displayName} key={idx} />
         ))}
       </div>
     );

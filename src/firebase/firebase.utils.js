@@ -12,11 +12,12 @@ export const storeUser = async (userAuth, additionalData) => {
 
   if (!snapShot.exists)
     userRef.set({
-      uid: userAuth.uid,
-      displayName: userAuth.displayName,
       email: userAuth.email,
       createdAt: new Date(),
+      ...additionalData,
     });
+
+  return userRef;
 };
 
 firebase.initializeApp(config);
