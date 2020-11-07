@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./chat-header.styles.scss";
 
 import Img from "../../temp/user.svg";

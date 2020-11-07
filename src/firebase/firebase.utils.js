@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-import { config } from "../config.js";
+import { config } from "./config.js";
 
 export const storeUser = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -12,12 +12,20 @@ export const storeUser = async (userAuth, additionalData) => {
 
   if (!snapShot.exists)
     userRef.set({
+      displayName: userAuth.displayName,
       email: userAuth.email,
       createdAt: new Date(),
       ...additionalData,
     });
 
   return userRef;
+};
+
+export const storeMessage = (messageData) => {
+  const messages = firestore.collection("messages");
+  const message = messages.doc();
+
+  message.set(messageData);
 };
 
 firebase.initializeApp(config);

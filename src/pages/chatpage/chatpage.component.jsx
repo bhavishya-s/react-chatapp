@@ -1,15 +1,20 @@
 import React from "react";
-import "./chatpage.styles.scss";
-import Img from "../../temp/user.svg";
 
+import "./chatpage.styles.scss";
+
+import Img from "../../temp/user.svg";
 import ChatSidebar from "../../components/chat-sidebar/chat-sidebar.component.jsx";
 import ChatHeader from "../../components/chat-header/chat-header.component.jsx";
 import Message from "../../components/message/message.component.jsx";
 import MessageBox from "../../components/message-box/message-box.component.jsx";
 
-import { auth } from "../../firebase/firebase.utils";
+import {
+  firestore,
+  auth,
+  storeMessage,
+} from "../../firebase/firebase.utils.js";
 
-export default class ChatPage extends React.Component {
+class ChatPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +23,25 @@ export default class ChatPage extends React.Component {
       messages: [],
     };
   }
-
-  componentDidMount() {
+  unsubscribeFromAuth = null;
+  unsubscribeFromMessages = null;
+  latest = React.createRef();
+  componentDidMount = async (props) => {
+    const messagesRef = await firestore
+      .collection("messages")
+      .orderBy("timeStamp");
+    this.unsubscribeFromMessages = await messagesRef.onSnapshot(
+      async (snapshot) => {
+        var messages = [];
+        snapshot.forEach((doc) => messages.push(doc.data()));
+        this.setState({ messages: messages });
+      }
+    );
     this.clearanceColor();
-  }
-
+  };
+  componentDidUpdate = () => {
+    this.latest.current.scrollIntoView({ block: "end" });
+  };
   clearanceColor = () => {
     const { messages } = this.state;
     var div = document.getElementsByClassName("messages-clearance")[0];
@@ -36,32 +55,10 @@ export default class ChatPage extends React.Component {
   };
 
   sendNewMessage = (messageBody) => {
-    // try {
-    //   console.log("Exec");
-    //   firestore
-    //     .collection("conversations")
-    //     .doc(`msg_${this.state.currentUser.uid}`)
-    //     .collection(`rcv_${firestore.collection(users).where(uid == )}`)
-    //     .doc("h")
-    //     .set({
-    //       sender: this.state.currentUser.displayName,
-    //       messageBody,
-    //       timeStamp: new Date(),
-    //     });
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
-    this.setState({
-      messages: [
-        ...this.state.messages,
-        {
-          author: "self",
-          name: this.state.currentUser.displayName,
-          messageBody,
-          timeStamp: new Date(),
-        },
-      ],
+    storeMessage({
+      name: this.state.currentUser.displayName,
+      messageBody,
+      timeStamp: new Date(),
     });
     this.setState({ idx: this.state.idx + 1 });
   };
@@ -71,49 +68,41 @@ export default class ChatPage extends React.Component {
   }
 
   render() {
-    const { messages, currentUser } = this.state;
+    const messages = this.state.messages;
     return (
       <>
         <div className="chat-page">
           <ChatHeader
-            img={currentUser.photoURL}
-            selfName={currentUser.displayName}
+            img={Img}
+            selfName={this.state.currentUser.displayName}
             logout={this.logoutUser}
           />
           <div className="chat-body">
-            <ChatSidebar />
-            <div className="chat-side-container">
-              <div className="chat-side-header">
-                <div className="friend-avatar">
-                  <img className="avatar" src={Img} alt={"avatar"} />
-                </div>
-                <span className="other-name">Placeholder</span>
+            <div className="messages-container">
+              <div className="messages">
+                {messages.map((itm, idx) => {
+                  return (
+                    <Message
+                      author={itm.author}
+                      name={itm.name}
+                      messageBody={itm.messageBody}
+                      key={idx}
+                    />
+                  );
+                })}
               </div>
-              <div className="chat-side">
-                <div className="clear-header"></div>
-                <div className="messages-container">
-                  <div className="messages">
-                    {messages.map((itm, idx) => (
-                      <Message
-                        author={itm.author}
-                        name={itm.name}
-                        messageBody={itm.messageBody}
-                        timeStamp={itm.timeStamp}
-                        key={idx}
-                      />
-                    ))}
-                    <div className="messages-clearance" />
-                  </div>
-                </div>
-                <MessageBox
-                  className="msg-box"
-                  sendMessage={(value) => this.sendNewMessage(value)}
-                />
-              </div>
+              <div className="lil-clearance" ref={this.latest} />
             </div>
           </div>
+          <div className="footer" />
+          <MessageBox
+            className="msg-box"
+            sendMessage={(value) => this.sendNewMessage(value)}
+          />
         </div>
       </>
     );
   }
 }
+
+export default ChatPage;

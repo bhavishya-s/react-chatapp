@@ -1,65 +1,28 @@
 .chat-page {
   height: 100%;
   display: grid;
-  grid-template-rows: 8% auto;
+  grid-template-rows: 8% auto 10%;
+  overflow: hidden;
 
   .chat-body {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 100%;
     min-height: 0;
-    // flex-grow: 1;
-    .chat-side-container {
-      height: 100%;
-      width: 100%;
-      overflow-y: auto;
-      .chat-side-header {
-        position: fixed;
-        display: flex;
-        align-items: center;
-        z-index: 2;
+    background: #242a35;
+    overflow: auto;
+
+    .messages-container {
+      background: #475368;
+
+      .lil-clearance {
         width: 100%;
-        height: 50px;
-        background: #282f3c;
-        color: white;
-        box-sizing: border-box;
-        display: flex;
-        justify-items: center;
-
-        .friend-avatar img {
-          height: 35px;
-          width: auto;
-          margin: 5px 15px;
-        }
-      }
-      .chat-side {
-        display: grid;
-        height: 100%;
-        width: 100%;
-        grid-template-rows: 50px auto 10%;
-        position: relative;
-        background: #242a35;
-
-        .clear-header:after {
-          content: "";
-          height: 50px;
-        }
-
-        .messages-container {
-          box-sizing: border-box;
-          height: 100%;
-          width: 100%;
-          background: #475368;
-        }
-        .messages-clearance {
-          display: none;
-          position: absolute;
-          content: " ";
-          width: 100%;
-          height: 10vh;
-          background: white;
-          // border: solid 1px red;
-        }
+        height: 3vh;
       }
     }
+  }
+
+  .footer {
+    background: #242a35;
+    height: 100%;
   }
 }

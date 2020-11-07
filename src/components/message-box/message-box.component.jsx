@@ -39,9 +39,6 @@ export default class MessageBox extends React.Component {
           onChange={this.handleChange}
           onKeyDown={this.handleReturn}
         />
-        <div className="send-button">
-          <img src={Send} alt="SEND" onClick={this.handleClick} />
-        </div>
       </div>
     );
   }

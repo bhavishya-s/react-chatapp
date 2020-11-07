@@ -1,12 +1,13 @@
 $main-color: #313a49;
 
 .message-input-box {
-  width: 70%;
+  width: 60%;
   min-height: 50px;
   height: 10vh;
   position: fixed;
+  left: 50%;
   margin: 0 auto;
-  transform: translateX(7%);
+  transform: translateX(-50%);
   bottom: 20px;
 
   input {
@@ -25,18 +26,5 @@ $main-color: #313a49;
   input:focus {
     border: 2px solid white;
     transition: 200ms all;
-  }
-
-  .send-button {
-    position: relative;
-    top: -40px;
-    left: 95%;
-    place-items: center;
-    width: max-content;
-    cursor: pointer;
-
-    & img {
-      width: 30px;
-    }
   }
 }

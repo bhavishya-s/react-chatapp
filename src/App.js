@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { auth, storeUser } from "./firebase/firebase.utils.js";
-
 import HomePage from "./pages/homepage/homepage.component.jsx";
 import ChatPage from "./pages/chatpage/chatpage.component.jsx";
 
@@ -13,7 +12,6 @@ class App extends React.Component {
       currentUser: null,
     };
   }
-
   unsubscribeFromAuth = null;
 
   componentDidMount() {
@@ -21,14 +19,14 @@ class App extends React.Component {
       if (userAuth) {
         const userRef = await storeUser(userAuth);
         userRef.onSnapshot((snapShot) => {
-          this.setState(
-            {
-              currentUser: { id: snapShot.id, ...snapShot.data() },
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
             },
-            () => console.log(this.state.currentUser)
-          );
+          });
         });
-      } else this.setState({ currentUser: null });
+      } else this.setState({ currentUser: userAuth });
     });
   }
 
@@ -36,7 +34,8 @@ class App extends React.Component {
     this.unsubscribeFromAuth();
   }
 
-  render() {
+  render(props) {
+    console.log(this.state);
     return (
       <div className="App">
         <Switch>
