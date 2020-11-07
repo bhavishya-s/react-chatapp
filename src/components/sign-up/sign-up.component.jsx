@@ -32,7 +32,7 @@ export default class SignIn extends React.Component {
       this.setState({
         email: "",
         password: "",
-        username: "",
+        displayName: "",
       });
     } catch (err) {
       console.log(err.message);

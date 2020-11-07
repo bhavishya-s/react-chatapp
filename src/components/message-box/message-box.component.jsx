@@ -1,7 +1,6 @@
 import React from "react";
 
 import "./message-box.styles.scss";
-import Send from "../../temp/paper-plane.svg";
 
 export default class MessageBox extends React.Component {
   constructor(props) {

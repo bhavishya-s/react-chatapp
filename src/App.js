@@ -35,7 +35,6 @@ class App extends React.Component {
   }
 
   render(props) {
-    console.log(this.state);
     return (
       <div className="App">
         <Switch>

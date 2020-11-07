@@ -2,8 +2,6 @@ import React from "react";
 
 import "./chatpage.styles.scss";
 
-import Img from "../../temp/user.svg";
-import ChatSidebar from "../../components/chat-sidebar/chat-sidebar.component.jsx";
 import ChatHeader from "../../components/chat-header/chat-header.component.jsx";
 import Message from "../../components/message/message.component.jsx";
 import MessageBox from "../../components/message-box/message-box.component.jsx";
@@ -59,6 +57,7 @@ class ChatPage extends React.Component {
       name: this.state.currentUser.displayName,
       messageBody,
       timeStamp: new Date(),
+      color: this.state.currentUser.color,
     });
     this.setState({ idx: this.state.idx + 1 });
   };
@@ -73,7 +72,7 @@ class ChatPage extends React.Component {
       <>
         <div className="chat-page">
           <ChatHeader
-            img={Img}
+            image={this.state.currentUser.image}
             selfName={this.state.currentUser.displayName}
             logout={this.logoutUser}
           />
@@ -83,7 +82,7 @@ class ChatPage extends React.Component {
                 {messages.map((itm, idx) => {
                   return (
                     <Message
-                      author={itm.author}
+                      color={itm.color}
                       name={itm.name}
                       messageBody={itm.messageBody}
                       key={idx}

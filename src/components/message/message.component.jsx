@@ -4,11 +4,14 @@ import "./message.styles.scss";
 
 export default class Messages extends Component {
   render(props) {
-    const { name, messageBody, timeStamp } = this.props;
+    const { color, name, messageBody, timeStamp } = this.props;
+    const style = {
+      color: color,
+    };
     return (
       <div className={` message-container`}>
         <div className="message-body-container">
-          <h3 className="message-author">
+          <h3 className="message-author" style={style}>
             {name}
             <span className="timestamp">{timeStamp}</span>
           </h3>
