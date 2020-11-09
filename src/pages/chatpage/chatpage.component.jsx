@@ -52,6 +52,11 @@ class ChatPage extends React.Component {
     }
   };
 
+  componentWillUnmount = () => {
+    this.unsubscribeFromAuth();
+    this.unsubscribeFromMessages();
+  };
+
   sendNewMessage = (messageBody) => {
     storeMessage({
       name: this.state.currentUser.displayName,

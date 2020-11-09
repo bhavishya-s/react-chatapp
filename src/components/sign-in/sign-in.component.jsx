@@ -11,7 +11,7 @@ class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -44,10 +44,10 @@ class SignIn extends React.Component {
         <div className="small heading">-OR-</div>
         <form method="GET" onSubmit={this.handleSubmit}>
           <FormInput
-            name="username"
-            type="text"
-            label="USERNAME"
-            value={this.state.username}
+            name="email"
+            type="email"
+            label="EMAIL"
+            value={this.state.email}
             handleChange={this.handleChange}
           />
           <FormInput

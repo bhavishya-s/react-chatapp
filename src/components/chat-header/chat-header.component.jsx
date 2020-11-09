@@ -2,7 +2,6 @@ import React from "react";
 import "./chat-header.styles.scss";
 
 import Img from "../../temp/user.svg";
-import CustomButton from "../custom-button/custom-button.component.jsx";
 
 export default function ChatHeader({ image, selfName, logout }) {
   return (
@@ -17,7 +16,9 @@ export default function ChatHeader({ image, selfName, logout }) {
       </div>
       <div className="content-right">
         <div className="button-container">
-          <CustomButton onClick={() => logout()}>LOGOUT</CustomButton>
+          <button className="mod-custom-button" onClick={() => logout()}>
+            LOGOUT
+          </button>
         </div>
       </div>
     </div>
